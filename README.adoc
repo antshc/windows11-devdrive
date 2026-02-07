@@ -3,7 +3,7 @@
 :toclevels: 3
 :sectnums:
 
-== 1. Purpose
+== Purpose
 
 This guideline describes how to configure *Windows 11 Dev Drive* for software development with:
 
@@ -17,7 +17,7 @@ The goals are:
 * Reduce antivirus overhead during development
 * Maintain acceptable security posture for developer workstations
 
-== 2. Dev Drive Overview
+== Dev Drive Overview
 
 Dev Drive is optimized for developer workloads using:
 
@@ -29,7 +29,7 @@ Dev Drive is optimized for developer workloads using:
 Dev Drive can reduce real-time antivirus scanning. This improves performance but weakens immediate malware detection. This must align with your organization’s security policies.
 ====
 
-== 3. When to Install Developer Tools on Dev Drive
+== When to Install Developer Tools on Dev Drive
 
 Developer tools and SDKs are typically installed in:
 
@@ -55,16 +55,16 @@ Put source code, caches, build artifacts, and SDK toolchains on Dev Drive.
 Keep security agents and production credentials off Dev Drive.
 ____
 
-== 4. Create and Configure Dev Drive
+== Create and Configure Dev Drive
 
-=== 4.1 Create Dev Drive (Windows UI)
+=== Create Dev Drive (Windows UI)
 
 . Settings -> System -> Storage -> Advanced storage settings -> Disks & volumes  
 . Create a new volume  
 . Select *Dev Drive (ReFS)*  
 . Assign a drive letter (example: `D:`)
 
-=== 4.2 Configure Microsoft Defender Performance Mode (Optional)
+=== Configure Microsoft Defender Performance Mode (Optional)
 
 By default, Dev Drive uses performance-optimized scanning.
 
@@ -81,7 +81,7 @@ This policy applies to *ALL Dev Drives* on the system.
 Enable only on developer workstations and never on CI or shared machines.
 ====
 
-== 5. Recommended Folder Structure
+== Recommended Folder Structure
 
 [source]
 ----
@@ -94,9 +94,9 @@ D:\dev\
  └── temp\
 ----
 
-== 6. Configure .NET 8
+== Configure .NET 8
 
-=== 6.1 Install .NET SDK
+=== Install .NET SDK
 
 Optionally place portable SDKs in:
 
@@ -105,7 +105,7 @@ Optionally place portable SDKs in:
 D:\dev\tools\dotnet\
 ----
 
-=== 6.2 Redirect NuGet Global Packages Folder
+=== Redirect NuGet Global Packages Folder
 
 Default location:
 
@@ -130,23 +130,23 @@ Verify:
 dotnet nuget locals global-packages --list
 ----
 
-=== 6.3 Optional: Redirect NuGet HTTP Cache
+=== Optional: Redirect NuGet HTTP Cache
 
 [source,powershell]
 ----
 setx NUGET_HTTP_CACHE_PATH "D:\dev\nuget-cache\http"
 ----
 
-== 7. Configure JetBrains Rider
+== Configure JetBrains Rider
 
-=== 7.1 Project Location
+=== Project Location
 
 [source]
 ----
 D:\dev\projects\<solution>
 ----
 
-=== 7.2 Rider Cache Locations (Optional)
+=== Rider Cache Locations (Optional)
 
 Edit:
 
@@ -161,7 +161,7 @@ idea.log.path=D:/dev/tools/rider/log
 
 Restart Rider.
 
-== 8. Package Cache (Visual Studio / Build Tools)
+== Package Cache (Visual Studio / Build Tools)
 
 Visual Studio stores large caches under:
 
@@ -173,7 +173,7 @@ C:\ProgramData\Package Cache
 If supported by your tooling, move large caches to Dev Drive.  
 Restart shells or reboot after environment changes.
 
-== 9. Microsoft Defender Exclusions (Alternative to Disabling Filters)
+== Microsoft Defender Exclusions (Alternative to Disabling Filters)
 
 Add scoped exclusions:
 
@@ -185,7 +185,7 @@ D:\dev\nuget-cache\
 
 This is safer than disabling antivirus filters globally.
 
-== 10. Security Guidance
+== Security Guidance
 
 [cols="1,2",options="header"]
 |===
@@ -197,7 +197,7 @@ This is safer than disabling antivirus filters globally.
 |Dev Drive content | Treat as trusted dev-only workspace
 |===
 
-== 11. Validation Checklist
+== Validation Checklist
 
 * `dotnet --info` works
 * `dotnet restore` uses Dev Drive cache
@@ -206,7 +206,7 @@ This is safer than disabling antivirus filters globally.
 * Build times improved
 * No permission issues
 
-== 12. Example Machine Layout
+== Example Machine Layout
 
 [source]
 ----
@@ -221,14 +221,14 @@ D:\dev\
  └── temp\
 ----
 
-== 13. Common Pitfalls
+== Common Pitfalls
 
 * Disabling Defender filters on shared machines
 * Storing credentials on Dev Drive
 * Using Dev Drive for production artifacts
 * Forgetting to restart shells after changing environment variables
 
-== 14. Summary
+== Summary
 
 Dev Drive improves build and restore performance for .NET and JetBrains Rider by using ReFS and optimized antivirus scanning.  
 Store source code, NuGet cache, and build artifacts on Dev Drive.  
