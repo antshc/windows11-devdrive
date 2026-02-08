@@ -11,42 +11,6 @@ This guideline describes how to configure *Windows 11 Dev Drive* for software de
 * NuGet package cache
 * JetBrains Rider (IntelliJ platform)
 
-The goals are:
-
-* Improve IO performance for builds, restores, and indexing
-* Reduce antivirus overhead during development
-* Maintain acceptable security posture for developer workstations
-
-== Dev Drive Overview
-
-Dev Drive is optimized for developer workloads using:
-
-* ReFS file system
-* Optional Microsoft Defender performance mode (asynchronous scanning)
-
-[WARNING]
-====
-Dev Drive can reduce real-time antivirus scanning. This improves performance but weakens immediate malware detection. This must align with your organization’s security policies.
-====
-
-== When to Install Developer Tools on Dev Drive
-
-Developer tools and SDKs are typically installed in:
-
-[cols="1,2",options="header"]
-|===
-|Type |Typical Location
-|System-wide | `C:\Program Files\`
-|Per-user | `%LOCALAPPDATA%`
-|Dev Drive (optional) | `D:\dev\tools\`
-|===
-
-You may install tools and SDKs on Dev Drive if:
-
-* Asynchronous antivirus scanning is acceptable
-* Dev Drive usage is isolated to trusted development workflows
-* Security-sensitive production binaries are not installed there
-
 Recommended rule:
 
 [quote]
@@ -74,6 +38,14 @@ To disable antivirus filters for all Dev Drives:
 ----
 fsutil devdrv enable /disallowAv
 ----
+=== Exlusion of DevDrive
+
+Windows Security > Virus & treat protection > Virus & treat protection settings > Manage settings
+
+Dev drive protection: "On"
+
+Exclusions > Add or Remove exclusions: Add disk "D:"
+
 == Recommended Folder Structure
 
 [source]
@@ -121,14 +93,9 @@ Configure -> Edit Custom Properties
 idea.system.path=D:/tools/rider/system
 idea.config.path=D:/tools/rider/config
 idea.log.path=D:/tools/rider/log
+idea.plugins.path=D:/tools/rider/config/plugins
 ----
 
 Restart Rider.
 
-== Microsoft Defender Exclusions (Alternative to Disabling Filters)
-Windows Security > Virus & treat protection > Virus & treat protection settings > Manage settings
-Dev drive protection: "On"
-Exclusions > Add or Remove exclusions: Add disk "D:"
-
-https://www.youtube.com/watch?v=y4bB0xpjJjk
 
