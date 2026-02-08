@@ -36,6 +36,7 @@ To disable antivirus filters for all Dev Drives:
 
 [source,powershell]
 ----
+fsutil devdrv trust d:
 fsutil devdrv enable /disallowAv
 ----
 === Exlusion of DevDrive
