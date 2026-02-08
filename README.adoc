@@ -100,4 +100,15 @@ idea.plugins.path=D:/tools/rider/config/plugins
 
 Restart Rider.
 
+== Move %TEMP% to Dev Drive
+[source,properties]
+----
+mkdir D:\temp
+
+setx TEMP "D:\temp"
+setx TMP  "D:\temp"
+
+----
+
+
 
