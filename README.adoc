@@ -99,7 +99,7 @@ D:\dev\
 === Install .NET SDK
 [source]
 ----
-D:\dev\tools\dotnet\
+./dotnet-install.ps1 -Channel LTS -InstallDir D:\tools\dotnet\
 ----
 
 === Redirect NuGet Global Packages Folder
