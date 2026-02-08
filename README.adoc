@@ -97,44 +97,22 @@ D:\dev\
 == Configure .NET 8
 
 === Install .NET SDK
-
-Optionally place portable SDKs in:
-
 [source]
 ----
 D:\dev\tools\dotnet\
 ----
 
 === Redirect NuGet Global Packages Folder
-
-Default location:
-
-[source]
-----
-C:\Users\<user>\.nuget\packages
-----
-
 Move to Dev Drive:
 
 [source,powershell]
 ----
-setx NUGET_PACKAGES "D:\dev\nuget-cache"
-----
+setx NUGET_PACKAGES "D:\nuget-cache\packages"
+setx NUGET_HTTP_CACHE_PATH "D:\nuget-cache\http-cache"
+setx NUGET_TEMP_PATH "D:\nuget-cache\temp"
 
-Restart all terminals or reboot.
-
-Verify:
-
-[source,powershell]
-----
-dotnet nuget locals global-packages --list
-----
-
-=== Optional: Redirect NuGet HTTP Cache
-
-[source,powershell]
-----
-setx NUGET_HTTP_CACHE_PATH "D:\dev\nuget-cache\http"
+# Verify locations (restart terminal/IDE after setx)
+dotnet nuget locals all --list
 ----
 
 == Configure JetBrains Rider
