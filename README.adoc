@@ -36,16 +36,17 @@ To disable antivirus filters for all Dev Drives:
 
 [source,powershell]
 ----
-fsutil devdrv trust d:
+# Max performance, when use this options other options is not required
 fsutil devdrv enable /disallowAv
+# Check if the defender disabled
+fsutil devdrv query D: 
+
+# make trusted folder for async scanning 
+fsutil devdrv trust d:
+
+# Exlude folders from scanning
+Add-MpPreference -ExclusionPath D:\
 ----
-=== Exlusion of DevDrive
-
-Windows Security > Virus & treat protection > Virus & treat protection settings > Manage settings
-
-Dev drive protection: "On"
-
-Exclusions > Add or Remove exclusions: Add disk "D:"
 
 == Recommended Folder Structure
 
