@@ -74,18 +74,11 @@ To disable antivirus filters for all Dev Drives:
 ----
 fsutil devdrv enable /disallowAv
 ----
-
-[CAUTION]
-====
-This policy applies to *ALL Dev Drives* on the system.
-Enable only on developer workstations and never on CI or shared machines.
-====
-
 == Recommended Folder Structure
 
 [source]
 ----
-D:\dev\
+D:\
  ├── tools\
  │    ├── dotnet\
  │    └── rider\
@@ -117,98 +110,25 @@ dotnet nuget locals all --list
 
 == Configure JetBrains Rider
 
-=== Project Location
-
-[source]
-----
-D:\dev\projects\<solution>
-----
-
 === Rider Cache Locations (Optional)
 
 Edit:
 
-Help -> Edit Custom Properties
+Configure -> Edit Custom Properties
 
 [source,properties]
 ----
-idea.system.path=D:/dev/tools/rider/system
-idea.config.path=D:/dev/tools/rider/config
-idea.log.path=D:/dev/tools/rider/log
+idea.system.path=D:/tools/rider/system
+idea.config.path=D:/tools/rider/config
+idea.log.path=D:/tools/rider/log
 ----
 
 Restart Rider.
 
-== Package Cache (Visual Studio / Build Tools)
-
-Visual Studio stores large caches under:
-
-[source]
-----
-C:\ProgramData\Package Cache
-----
-
-If supported by your tooling, move large caches to Dev Drive.  
-Restart shells or reboot after environment changes.
-
 == Microsoft Defender Exclusions (Alternative to Disabling Filters)
+Windows Security > Virus & treat protection > Virus & treat protection settings > Manage settings
+Dev drive protection: "On"
+Exclusions > Add or Remove exclusions: Add disk "D:"
 
-Add scoped exclusions:
+https://www.youtube.com/watch?v=y4bB0xpjJjk
 
-[source]
-----
-D:\dev\projects\
-D:\dev\nuget-cache\
-----
-
-This is safer than disabling antivirus filters globally.
-
-== Security Guidance
-
-[cols="1,2",options="header"]
-|===
-|Area |Recommendation
-|Credentials | Keep on system drive
-|Secrets | Use Key Vault or environment variables
-|CI agents | Do not use Dev Drive
-|Production binaries | Do not store on Dev Drive
-|Dev Drive content | Treat as trusted dev-only workspace
-|===
-
-== Validation Checklist
-
-* `dotnet --info` works
-* `dotnet restore` uses Dev Drive cache
-* Rider opens projects from Dev Drive
-* Defender behavior matches security policy
-* Build times improved
-* No permission issues
-
-== Example Machine Layout
-
-[source]
-----
-C:\Windows
-C:\Program Files
-C:\Users\<user>
-
-D:\dev\
- ├── projects\
- ├── nuget-cache\
- ├── tools\
- └── temp\
-----
-
-== Common Pitfalls
-
-* Disabling Defender filters on shared machines
-* Storing credentials on Dev Drive
-* Using Dev Drive for production artifacts
-* Forgetting to restart shells after changing environment variables
-
-== Summary
-
-Dev Drive improves build and restore performance for .NET and JetBrains Rider by using ReFS and optimized antivirus scanning.  
-Store source code, NuGet cache, and build artifacts on Dev Drive.  
-Do not store secrets or production binaries.  
-Carefully evaluate Defender filter settings to balance performance and security.
