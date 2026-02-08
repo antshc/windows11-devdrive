@@ -54,7 +54,6 @@ Exclusions > Add or Remove exclusions: Add disk "D:"
 D:\
  ├── tools\
  │    ├── dotnet\
- │    └── rider\
  ├── nuget-cache\
  ├── projects\
  └── temp\
@@ -65,6 +64,7 @@ D:\
 === Install .NET SDK
 [source]
 ----
+./dotnet-install.ps1 -Version 8.0.417 -InstallDir D:\tools\dotnet\
 ./dotnet-install.ps1 -Channel LTS -InstallDir D:\tools\dotnet\
 ----
 
@@ -75,7 +75,8 @@ Move to Dev Drive:
 ----
 setx NUGET_PACKAGES "D:\nuget-cache\packages"
 setx NUGET_HTTP_CACHE_PATH "D:\nuget-cache\http-cache"
-setx NUGET_TEMP_PATH "D:\nuget-cache\temp"
+setx NUGET_SCRATCH "D:\nuget-cache\scratch"
+setx NUGET_PLUGINS_CACHE_PATH "D:\nuget-cache\plugins-cache"
 
 # Verify locations (restart terminal/IDE after setx)
 dotnet nuget locals all --list
@@ -83,7 +84,7 @@ dotnet nuget locals all --list
 
 == Configure JetBrains Rider
 
-=== Rider Cache Locations (Optional)
+=== Rider Cache Locations
 
 Edit:
 
