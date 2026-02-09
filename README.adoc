@@ -74,10 +74,12 @@ Move to Dev Drive:
 
 [source,powershell]
 ----
-setx NUGET_PACKAGES "D:\nuget-cache\packages"
-setx NUGET_HTTP_CACHE_PATH "D:\nuget-cache\http-cache"
-setx NUGET_SCRATCH "D:\nuget-cache\scratch"
-setx NUGET_PLUGINS_CACHE_PATH "D:\nuget-cache\plugins-cache"
+"D:\nuget-cache\packages","D:\nuget-cache\http-cache","D:\nuget-cache\scratch","D:\nuget-cache\plugins-cache" | ForEach-Object { New-Item -ItemType Directory -Path $_ -Force | Out-Null }
+
+setx NUGET_PACKAGES "D:\nuget-cache\packages" `
+; setx NUGET_HTTP_CACHE_PATH "D:\nuget-cache\http-cache" `
+; setx NUGET_SCRATCH "D:\nuget-cache\scratch" `
+; setx NUGET_PLUGINS_CACHE_PATH "D:\nuget-cache\plugins-cache"
 
 # Verify locations (restart terminal/IDE after setx)
 dotnet nuget locals all --list
@@ -104,10 +106,9 @@ Restart Rider.
 == Move %TEMP% to Dev Drive
 [source,properties]
 ----
-mkdir D:\temp
-
-setx TEMP "D:\temp"
-setx TMP  "D:\temp"
+mkdir D:\temp `
+; setx TEMP "D:\temp" `
+; setx TMP  "D:\temp"
 
 ----
 
